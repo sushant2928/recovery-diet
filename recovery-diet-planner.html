@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<meta name="theme-color" content="#f5f1ea" media="(prefers-color-scheme: light)" />
+<meta name="theme-color" content="#131110" media="(prefers-color-scheme: dark)" />
+<title>Recovery Diet Planner</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Geist:wght@300..700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+<style>
+  /* ============================================================
+     RESET + BASE
+     ============================================================ */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { -webkit-text-size-adjust: 100%; -webkit-tap-highlight-color: transparent; }
+  body {
+    font-family: 'Geist', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-feature-settings: 'ss01', 'cv01';
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.5;
+    min-height: 100vh;
+    min-height: 100dvh;
+    transition: background-color .35s ease, color .35s ease;
+  }
+  button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
+  ul { list-style: none; }
+  :focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 6px;
+  }
+
+  /* ============================================================
+     THEME TOKENS
+     ============================================================ */
+  :root {
+    --bg: #f5f1ea;
+    --surface: #fbf9f5;
+    --surface-2: #ffffff;
+    --surface-pressed: #efe9de;
+    --text: #1a1714;
+    --text-muted: #756e64;
+    --text-faint: #a39c91;
+    --border: #e6dfd1;
+    --border-strong: #d6cdbb;
+    --accent: #b85a3c;
+    --accent-hover: #a44d31;
+    --accent-soft: #f3dcce;
+    --accent-tint: #faeee5;
+    --success: #6a8e5e;
+    --success-soft: #dfe8d8;
+    --shadow-sm: 0 1px 2px rgba(40, 30, 20, .04);
+    --shadow-md: 0 4px 14px rgba(40, 30, 20, .06), 0 1px 2px rgba(40, 30, 20, .04);
+    --shadow-lg: 0 12px 32px rgba(40, 30, 20, .09), 0 2px 6px rgba(40, 30, 20, .04);
+    --radius-sm: 8px;
+    --radius-md: 14px;
+    --radius-lg: 20px;
+    --radius-pill: 999px;
+  }
+  html.dark {
+    --bg: #131110;
+    --surface: #1c1a17;
+    --surface-2: #252220;
+    --surface-pressed: #2a2622;
+    --text: #efeae0;
+    --text-muted: #9a9388;
+    --text-faint: #6b6459;
+    --border: #2d2925;
+    --border-strong: #3a3530;
+    --accent: #d97757;
+    --accent-hover: #e58a6c;
+    --accent-soft: #3b261c;
+    --accent-tint: #28190f;
+    --success: #8aaa7c;
+    --success-soft: #2a3424;
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, .25);
+    --shadow-md: 0 4px 14px rgba(0, 0, 0, .35), 0 1px 2px rgba(0, 0, 0, .2);
+    --shadow-lg: 0 12px 32px rgba(0, 0, 0, .45), 0 2px 6px rgba(0, 0, 0, .25);
+  }
+
+  /* ============================================================
+     TYPOGRAPHY
+     ============================================================ */
+  .display {
+    font-family: 'Fraunces', Georgia, serif;
+    font-optical-sizing: auto;
+    letter-spacing: -0.01em;
+  }
+  .mono {
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-feature-settings: 'tnum';
+  }
+
+  /* ============================================================
+     LAYOUT
+     ============================================================ */
+  .app {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 20px 18px 140px;
+  }
+  @media (min-width: 720px) {
+    .app { padding: 36px 32px 160px; }
+  }
+
+  /* ============================================================
+     TOPBAR
+     ============================================================ */
+  .topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 22px;
+  }
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .brand-mark {
+    width: 38px;
+    height: 38px;
+    border-radius: 12px;
+    background: var(--accent);
+    display: grid;
+    place-items: center;
+    color: #fff;
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    font-size: 20px;
+    flex-shrink: 0;
+    box-shadow: var(--shadow-sm);
+  }
+  .brand-text { line-height: 1.2; }
+  .brand-text .title {
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+    font-size: 18px;
+    letter-spacing: -0.01em;
+  }
+  .brand-text .subtitle {
+    font-size: 12px;
+    color: var(--text-muted);
+    font-weight: 400;
+    letter-spacing: 0.02em;
+    margin-top: 1px;
+  }
+  .theme-toggle {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    border: 1px solid var(--border);
+    background: var(--surface);
+    display: grid;
+    place-items: center;
+    transition: background-color .2s ease, border-color .2s ease, transform .15s ease;
+  }
+  .theme-toggle:hover { background: var(--surface-pressed); border-color: var(--border-strong); }
+  .theme-toggle:active { transform: scale(.94); }
+  .theme-toggle svg { width: 18px; height: 18px; }
+  .theme-toggle .icon-sun { display: none; }
+  .theme-toggle .icon-moon { display: block; }
+  html.dark .theme-toggle .icon-sun { display: block; }
+  html.dark .theme-toggle .icon-moon { display: none; }
+
+  /* ============================================================
+     DAY TABS
+     ============================================================ */
+  .day-tabs-wrap {
+    margin-bottom: 22px;
+    margin-left: -18px;
+    margin-right: -18px;
+    padding: 0 18px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .day-tabs-wrap::-webkit-scrollbar { display: none; }
+  .day-tabs {
+    display: flex;
+    gap: 6px;
+    padding: 4px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-pill);
+    width: max-content;
+    min-width: 100%;
+  }
+  .day-tab {
+    flex: 1;
+    min-width: 60px;
+    padding: 10px 14px;
+    border-radius: var(--radius-pill);
+    font-weight: 500;
+    font-size: 13px;
+    color: var(--text-muted);
+    transition: background-color .2s ease, color .2s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1px;
+    white-space: nowrap;
+  }
+  .day-tab .day-letter {
+    font-family: 'Fraunces', serif;
+    font-size: 15px;
+    font-weight: 500;
+  }
+  .day-tab .day-num {
+    font-size: 10px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--text-faint);
+  }
+  .day-tab:hover { color: var(--text); }
+  .day-tab.is-active {
+    background: var(--text);
+    color: var(--bg);
+  }
+  .day-tab.is-active .day-num { color: var(--bg); opacity: .7; }
+  .day-tab.is-today {
+    box-shadow: inset 0 0 0 1.5px var(--accent);
+  }
+  .day-tab.is-today.is-active { box-shadow: none; }
+
+  /* ============================================================
+     SUMMARY CARD
+     ============================================================ */
+  .summary {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 22px 22px 20px;
+    margin-bottom: 26px;
+    position: relative;
+    overflow: hidden;
+    animation: fadeUp .4s ease both;
+  }
+  .summary::before {
+    content: '';
+    position: absolute;
+    top: 0; right: 0;
+    width: 140px; height: 140px;
+    background: radial-gradient(circle at top right, var(--accent-tint), transparent 70%);
+    pointer-events: none;
+  }
+  .summary-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 14px;
+    position: relative;
+  }
+  .summary-day {
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+    font-size: clamp(28px, 7vw, 36px);
+    letter-spacing: -0.02em;
+    line-height: 1.05;
+  }
+  .summary-day .accent { color: var(--accent); font-style: italic; }
+  .summary-date {
+    font-size: 12px;
+    color: var(--text-muted);
+    text-align: right;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    flex-shrink: 0;
+  }
+  .summary-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 14px;
+    position: relative;
+  }
+  .summary-reminder {
+    font-size: 13.5px;
+    color: var(--text-muted);
+    line-height: 1.5;
+    padding-top: 14px;
+    border-top: 1px dashed var(--border);
+    position: relative;
+  }
+  .summary-reminder strong { color: var(--text); font-weight: 500; }
+
+  /* ============================================================
+     SECTION HEADER
+     ============================================================ */
+  .section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 14px;
+    padding: 0 4px;
+  }
+  .section-header h2 {
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+    font-size: 18px;
+    letter-spacing: -0.01em;
+  }
+  .section-header .meta {
+    font-size: 11.5px;
+    color: var(--text-faint);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+
+  /* ============================================================
+     TIMELINE
+     ============================================================ */
+  .timeline { display: flex; flex-direction: column; gap: 12px; margin-bottom: 32px; }
+  .block {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 16px 16px 14px;
+    transition: background-color .25s ease, border-color .25s ease, opacity .25s ease;
+    animation: fadeUp .4s ease both;
+  }
+  .block.is-done {
+    opacity: .58;
+    background: var(--surface);
+  }
+  .block.is-done .block-title { text-decoration: line-through; text-decoration-thickness: 1px; }
+  .block.is-fixed { background: var(--surface); }
+
+  .block-head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 10px;
+  }
+  .block-time {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--accent);
+    background: var(--accent-tint);
+    padding: 4px 8px;
+    border-radius: 6px;
+    letter-spacing: 0.02em;
+    flex-shrink: 0;
+    white-space: nowrap;
+  }
+  .block-title {
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+    font-size: 17px;
+    letter-spacing: -0.005em;
+    line-height: 1.25;
+    flex: 1;
+  }
+  .block-kind {
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-faint);
+    font-weight: 500;
+    margin-top: 2px;
+  }
+
+  /* The selection / option card inside a block */
+  .option-card {
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 12px 14px;
+    margin-top: 4px;
+    transition: all .25s ease;
+  }
+  .option-card.is-picked {
+    border-color: var(--accent);
+    background: var(--accent-tint);
+    box-shadow: inset 3px 0 0 var(--accent);
+  }
+  .option-card.is-empty {
+    border-style: dashed;
+    background: transparent;
+  }
+  .option-name {
+    font-size: 14.5px;
+    line-height: 1.45;
+    color: var(--text);
+    font-weight: 400;
+  }
+  .option-card.is-empty .option-name {
+    color: var(--text-faint);
+    font-style: italic;
+  }
+  .option-pos {
+    font-size: 10.5px;
+    color: var(--text-muted);
+    letter-spacing: 0.04em;
+    margin-bottom: 4px;
+    font-weight: 500;
+    text-transform: uppercase;
+  }
+  .option-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin-top: 9px;
+  }
+
+  /* Action button row */
+  .actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 12px;
+  }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    height: 38px;
+    padding: 0 14px;
+    border-radius: var(--radius-pill);
+    font-size: 13px;
+    font-weight: 500;
+    transition: background-color .15s ease, border-color .15s ease, color .15s ease, transform .12s ease;
+    white-space: nowrap;
+  }
+  .btn:active { transform: scale(.97); }
+  .btn svg { width: 14px; height: 14px; }
+
+  .btn-primary {
+    background: var(--text);
+    color: var(--bg);
+  }
+  .btn-primary:hover { background: var(--accent); color: #fff; }
+
+  .btn-secondary {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--text);
+  }
+  .btn-secondary:hover { background: var(--surface-pressed); border-color: var(--border-strong); }
+
+  .btn-success {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+  }
+  .btn-success:hover { background: var(--success-soft); border-color: var(--success); color: var(--success); }
+  .btn-success.is-done { background: var(--success-soft); border-color: var(--success); color: var(--success); }
+  .btn-success.is-done:hover { opacity: .85; }
+
+  /* ============================================================
+     CHIPS
+     ============================================================ */
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    height: 22px;
+    padding: 0 9px;
+    border-radius: var(--radius-pill);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+    background: var(--surface-pressed);
+    color: var(--text-muted);
+    border: 1px solid transparent;
+  }
+  .chip.chip-accent {
+    background: var(--accent-soft);
+    color: var(--accent);
+  }
+  .chip.chip-outside {
+    background: transparent;
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+  .chip.chip-strong {
+    background: var(--text);
+    color: var(--bg);
+  }
+
+  /* ============================================================
+     SUPPLEMENTS + RULES
+     ============================================================ */
+  .panel {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 18px 18px 16px;
+    margin-bottom: 18px;
+  }
+  .supps-list { display: flex; flex-direction: column; }
+  .supps-row {
+    display: grid;
+    grid-template-columns: 110px 1fr;
+    gap: 14px;
+    padding: 11px 0;
+    border-bottom: 1px solid var(--border);
+    align-items: baseline;
+  }
+  .supps-row:last-child { border-bottom: 0; }
+  .supps-time {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--accent);
+    font-weight: 500;
+  }
+  .supps-name {
+    font-size: 14px;
+    color: var(--text);
+    font-weight: 400;
+  }
+  .supps-name span {
+    color: var(--text-muted);
+    font-size: 12.5px;
+    margin-left: 6px;
+  }
+
+  .rules-list {
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+  }
+  .rules-item {
+    display: flex;
+    gap: 11px;
+    align-items: flex-start;
+    font-size: 14px;
+    color: var(--text);
+  }
+  .rules-item::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+    margin-top: 9px;
+    flex-shrink: 0;
+  }
+
+  /* ============================================================
+     FAB BAR
+     ============================================================ */
+  .fab-bar {
+    position: fixed;
+    left: 50%;
+    bottom: max(16px, env(safe-area-inset-bottom, 16px));
+    transform: translateX(-50%);
+    display: flex;
+    gap: 6px;
+    padding: 6px;
+    background: var(--surface);
+    border: 1px solid var(--border-strong);
+    border-radius: var(--radius-pill);
+    box-shadow: var(--shadow-lg);
+    z-index: 50;
+    backdrop-filter: blur(20px) saturate(140%);
+    -webkit-backdrop-filter: blur(20px) saturate(140%);
+  }
+  .fab-bar .btn { height: 42px; padding: 0 16px; font-size: 13px; }
+  .fab-bar .btn-primary { background: var(--accent); color: #fff; }
+  .fab-bar .btn-primary:hover { background: var(--accent-hover); }
+
+  /* ============================================================
+     ANIMATIONS
+     ============================================================ */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes pop {
+    0%   { transform: scale(.94); }
+    100% { transform: scale(1); }
+  }
+  .pop { animation: pop .25s ease; }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; transition: none !important; }
+  }
+
+  /* ============================================================
+     SMALL SCREEN ADJUSTMENTS
+     ============================================================ */
+  @media (max-width: 380px) {
+    .day-tab { min-width: 50px; padding: 9px 10px; }
+    .summary-day { font-size: 26px; }
+    .fab-bar .btn { padding: 0 12px; font-size: 12px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="app">
+
+  <!-- =================================================
+       TOPBAR
+       ================================================= -->
+  <header class="topbar" role="banner">
+    <div class="brand">
+      <div class="brand-mark display" aria-hidden="true">R</div>
+      <div class="brand-text">
+        <div class="title">Recovery Diet Planner</div>
+        <div class="subtitle" id="todayLabel">— sit tight, loading —</div>
+      </div>
+    </div>
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+      <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+      </svg>
+      <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <circle cx="12" cy="12" r="4.2"/>
+        <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/>
+      </svg>
+    </button>
+  </header>
+
+  <!-- =================================================
+       DAY TABS
+       ================================================= -->
+  <div class="day-tabs-wrap">
+    <div class="day-tabs" role="tablist" id="dayTabs"></div>
+  </div>
+
+  <!-- =================================================
+       SUMMARY CARD
+       ================================================= -->
+  <section class="summary" id="summary" aria-live="polite"></section>
+
+  <!-- =================================================
+       TIMELINE
+       ================================================= -->
+  <div class="section-header">
+    <h2>Today's flow</h2>
+    <span class="meta" id="timelineMeta">—</span>
+  </div>
+  <section class="timeline" id="timeline" aria-label="Daily schedule"></section>
+
+  <!-- =================================================
+       SUPPLEMENTS
+       ================================================= -->
+  <div class="section-header">
+    <h2>Supplements</h2>
+    <span class="meta">Daily timing</span>
+  </div>
+  <section class="panel" aria-label="Supplements">
+    <div class="supps-list">
+      <div class="supps-row"><div class="supps-time">8:00 — 8:30</div><div class="supps-name">Vitamin B12 <span>morning</span></div></div>
+      <div class="supps-row"><div class="supps-time">10:30 — 11:00</div><div class="supps-name">Whey + Creatine <span>after physio</span></div></div>
+      <div class="supps-row"><div class="supps-time">1:30 PM</div><div class="supps-name">Omega-3 <span>with lunch</span></div></div>
+      <div class="supps-row"><div class="supps-time">1:30 / 9:00</div><div class="supps-name">Vitamin D3 <span>with lunch or dinner</span></div></div>
+      <div class="supps-row"><div class="supps-time">11:00 PM</div><div class="supps-name">Magnesium <span>optional, before bed</span></div></div>
+    </div>
+  </section>
+
+  <!-- =================================================
+       RULES
+       ================================================= -->
+  <div class="section-header">
+    <h2>House rules</h2>
+    <span class="meta">Non-negotiabl
