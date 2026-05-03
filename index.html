@@ -33,6 +33,7 @@
     outline-offset: 3px;
     border-radius: 6px;
   }
+  ::selection { background: var(--accent-soft); color: var(--accent); }
 
   /* ============================================================
      THEME TOKENS
@@ -85,81 +86,49 @@
   /* ============================================================
      TYPOGRAPHY
      ============================================================ */
-  .display {
-    font-family: 'Fraunces', Georgia, serif;
-    font-optical-sizing: auto;
-    letter-spacing: -0.01em;
-  }
-  .mono {
-    font-family: 'JetBrains Mono', ui-monospace, monospace;
-    font-feature-settings: 'tnum';
-  }
+  .display { font-family: 'Fraunces', Georgia, serif; font-optical-sizing: auto; letter-spacing: -0.01em; }
+  .mono    { font-family: 'JetBrains Mono', ui-monospace, monospace; font-feature-settings: 'tnum'; }
 
   /* ============================================================
      LAYOUT
      ============================================================ */
-  .app {
-    max-width: 720px;
-    margin: 0 auto;
-    padding: 20px 18px 140px;
-  }
-  @media (min-width: 720px) {
-    .app { padding: 36px 32px 160px; }
-  }
+  .app { max-width: 720px; margin: 0 auto; padding: 20px 18px 140px; }
+  @media (min-width: 720px) { .app { padding: 36px 32px 160px; } }
 
   /* ============================================================
      TOPBAR
      ============================================================ */
-  .topbar {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 22px;
-  }
-  .brand {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-  }
+  .topbar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 22px; }
+  .brand { display: flex; align-items: center; gap: 12px; }
   .brand-mark {
-    width: 38px;
-    height: 38px;
+    width: 38px; height: 38px;
     border-radius: 12px;
     background: var(--accent);
-    display: grid;
-    place-items: center;
+    display: grid; place-items: center;
     color: #fff;
-    font-family: 'Fraunces', serif;
-    font-weight: 600;
-    font-size: 20px;
+    font-family: 'Fraunces', serif; font-weight: 600; font-size: 20px;
     flex-shrink: 0;
     box-shadow: var(--shadow-sm);
   }
   .brand-text { line-height: 1.2; }
   .brand-text .title {
-    font-family: 'Fraunces', serif;
-    font-weight: 500;
-    font-size: 18px;
-    letter-spacing: -0.01em;
+    font-family: 'Fraunces', serif; font-weight: 500;
+    font-size: 18px; letter-spacing: -0.01em;
   }
   .brand-text .subtitle {
-    font-size: 12px;
-    color: var(--text-muted);
-    font-weight: 400;
-    letter-spacing: 0.02em;
-    margin-top: 1px;
+    font-size: 12px; color: var(--text-muted); font-weight: 400;
+    letter-spacing: 0.02em; margin-top: 1px;
   }
   .theme-toggle {
-    width: 42px;
-    height: 42px;
+    width: 42px; height: 42px;
     border-radius: 50%;
     border: 1px solid var(--border);
     background: var(--surface);
-    display: grid;
-    place-items: center;
+    display: grid; place-items: center;
     transition: background-color .2s ease, border-color .2s ease, transform .15s ease;
+    color: var(--text-muted);
   }
-  .theme-toggle:hover { background: var(--surface-pressed); border-color: var(--border-strong); }
+  .theme-toggle:hover { background: var(--surface-pressed); border-color: var(--border-strong); color: var(--text); }
   .theme-toggle:active { transform: scale(.94); }
   .theme-toggle svg { width: 18px; height: 18px; }
   .theme-toggle .icon-sun { display: none; }
@@ -171,9 +140,7 @@
      DAY TABS
      ============================================================ */
   .day-tabs-wrap {
-    margin-bottom: 22px;
-    margin-left: -18px;
-    margin-right: -18px;
+    margin: 0 -18px 22px;
     padding: 0 18px;
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
@@ -181,9 +148,7 @@
   }
   .day-tabs-wrap::-webkit-scrollbar { display: none; }
   .day-tabs {
-    display: flex;
-    gap: 6px;
-    padding: 4px;
+    display: flex; gap: 6px; padding: 4px;
     background: var(--surface);
     border: 1px solid var(--border);
     border-radius: var(--radius-pill);
@@ -193,38 +158,20 @@
   .day-tab {
     flex: 1;
     min-width: 60px;
-    padding: 10px 14px;
+    padding: 9px 14px 10px;
     border-radius: var(--radius-pill);
-    font-weight: 500;
-    font-size: 13px;
+    font-weight: 500; font-size: 13px;
     color: var(--text-muted);
     transition: background-color .2s ease, color .2s ease;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1px;
+    display: flex; flex-direction: column; align-items: center; gap: 1px;
     white-space: nowrap;
   }
-  .day-tab .day-letter {
-    font-family: 'Fraunces', serif;
-    font-size: 15px;
-    font-weight: 500;
-  }
-  .day-tab .day-num {
-    font-size: 10px;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    color: var(--text-faint);
-  }
+  .day-tab .day-letter { font-family: 'Fraunces', serif; font-size: 15px; font-weight: 500; }
+  .day-tab .day-num   { font-size: 9.5px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-faint); font-weight: 500; }
   .day-tab:hover { color: var(--text); }
-  .day-tab.is-active {
-    background: var(--text);
-    color: var(--bg);
-  }
-  .day-tab.is-active .day-num { color: var(--bg); opacity: .7; }
-  .day-tab.is-today {
-    box-shadow: inset 0 0 0 1.5px var(--accent);
-  }
+  .day-tab.is-active { background: var(--text); color: var(--bg); }
+  .day-tab.is-active .day-num { color: var(--bg); opacity: .65; }
+  .day-tab.is-today { box-shadow: inset 0 0 0 1.5px var(--accent); }
   .day-tab.is-today.is-active { box-shadow: none; }
 
   /* ============================================================
@@ -244,73 +191,53 @@
     content: '';
     position: absolute;
     top: 0; right: 0;
-    width: 140px; height: 140px;
+    width: 160px; height: 160px;
     background: radial-gradient(circle at top right, var(--accent-tint), transparent 70%);
     pointer-events: none;
   }
   .summary-head {
-    display: flex;
-    align-items: baseline;
-    justify-content: space-between;
-    gap: 16px;
-    margin-bottom: 14px;
-    position: relative;
+    display: flex; align-items: baseline; justify-content: space-between;
+    gap: 16px; margin-bottom: 14px; position: relative;
   }
   .summary-day {
-    font-family: 'Fraunces', serif;
-    font-weight: 500;
+    font-family: 'Fraunces', serif; font-weight: 500;
     font-size: clamp(28px, 7vw, 36px);
-    letter-spacing: -0.02em;
-    line-height: 1.05;
+    letter-spacing: -0.02em; line-height: 1.05;
   }
-  .summary-day .accent { color: var(--accent); font-style: italic; }
+  .summary-day .accent { color: var(--accent); font-style: italic; font-weight: 400; }
   .summary-date {
-    font-size: 12px;
-    color: var(--text-muted);
-    text-align: right;
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
-    flex-shrink: 0;
+    font-size: 11px; color: var(--text-muted);
+    text-align: right; letter-spacing: 0.06em; text-transform: uppercase;
+    flex-shrink: 0; font-weight: 500;
   }
   .summary-chips {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 6px;
-    margin-bottom: 14px;
-    position: relative;
+    display: flex; flex-wrap: wrap; gap: 6px;
+    margin-bottom: 14px; position: relative;
   }
   .summary-reminder {
-    font-size: 13.5px;
-    color: var(--text-muted);
-    line-height: 1.5;
-    padding-top: 14px;
-    border-top: 1px dashed var(--border);
+    font-size: 13.5px; color: var(--text-muted); line-height: 1.5;
+    padding-top: 14px; border-top: 1px dashed var(--border);
     position: relative;
   }
-  .summary-reminder strong { color: var(--text); font-weight: 500; }
+  .summary-reminder strong {
+    color: var(--text); font-weight: 500;
+    font-family: 'Fraunces', serif; font-style: italic;
+  }
 
   /* ============================================================
      SECTION HEADER
      ============================================================ */
   .section-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 14px;
-    padding: 0 4px;
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 14px; padding: 0 4px;
   }
   .section-header h2 {
-    font-family: 'Fraunces', serif;
-    font-weight: 500;
-    font-size: 18px;
-    letter-spacing: -0.01em;
+    font-family: 'Fraunces', serif; font-weight: 500;
+    font-size: 18px; letter-spacing: -0.01em;
   }
   .section-header .meta {
-    font-size: 11.5px;
-    color: var(--text-faint);
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    font-weight: 500;
+    font-size: 11px; color: var(--text-faint);
+    letter-spacing: 0.08em; text-transform: uppercase; font-weight: 500;
   }
 
   /* ============================================================
@@ -325,47 +252,42 @@
     transition: background-color .25s ease, border-color .25s ease, opacity .25s ease;
     animation: fadeUp .4s ease both;
   }
-  .block.is-done {
-    opacity: .58;
-    background: var(--surface);
-  }
+  .block.is-done { opacity: .55; }
   .block.is-done .block-title { text-decoration: line-through; text-decoration-thickness: 1px; }
-  .block.is-fixed { background: var(--surface); }
+  .block.is-event {
+    background: transparent;
+    border-style: dashed;
+  }
 
   .block-head {
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    gap: 12px;
-    margin-bottom: 10px;
+    display: flex; align-items: flex-start; justify-content: space-between;
+    gap: 12px; margin-bottom: 10px;
+  }
+  .block-head-left {
+    flex: 1; display: flex; flex-direction: column; gap: 4px; min-width: 0;
   }
   .block-time {
     font-family: 'JetBrains Mono', monospace;
-    font-size: 11px;
-    font-weight: 500;
+    font-size: 11px; font-weight: 500;
     color: var(--accent);
     background: var(--accent-tint);
     padding: 4px 8px;
     border-radius: 6px;
     letter-spacing: 0.02em;
-    flex-shrink: 0;
-    white-space: nowrap;
+    flex-shrink: 0; white-space: nowrap;
+    align-self: flex-start;
   }
   .block-title {
-    font-family: 'Fraunces', serif;
-    font-weight: 500;
-    font-size: 17px;
-    letter-spacing: -0.005em;
-    line-height: 1.25;
-    flex: 1;
+    font-family: 'Fraunces', serif; font-weight: 500;
+    font-size: 17px; letter-spacing: -0.005em; line-height: 1.25;
   }
   .block-kind {
-    font-size: 10px;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--text-faint);
-    font-weight: 500;
-    margin-top: 2px;
+    font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--text-faint); font-weight: 500;
+  }
+  .block-note {
+    font-size: 12.5px; color: var(--text-muted);
+    line-height: 1.45; margin-top: 2px;
   }
 
   /* The selection / option card inside a block */
@@ -374,8 +296,9 @@
     border: 1px solid var(--border);
     border-radius: var(--radius-sm);
     padding: 12px 14px;
-    margin-top: 4px;
+    margin-top: 8px;
     transition: all .25s ease;
+    position: relative;
   }
   .option-card.is-picked {
     border-color: var(--accent);
@@ -386,58 +309,43 @@
     border-style: dashed;
     background: transparent;
   }
+  .option-pos {
+    font-size: 10px; color: var(--text-muted);
+    letter-spacing: 0.08em; text-transform: uppercase;
+    font-weight: 500; margin-bottom: 4px;
+    font-family: 'JetBrains Mono', monospace;
+  }
   .option-name {
-    font-size: 14.5px;
-    line-height: 1.45;
-    color: var(--text);
-    font-weight: 400;
+    font-size: 14.5px; line-height: 1.4;
+    color: var(--text); font-weight: 400;
   }
   .option-card.is-empty .option-name {
-    color: var(--text-faint);
-    font-style: italic;
-  }
-  .option-pos {
-    font-size: 10.5px;
-    color: var(--text-muted);
-    letter-spacing: 0.04em;
-    margin-bottom: 4px;
-    font-weight: 500;
-    text-transform: uppercase;
+    color: var(--text-faint); font-style: italic;
   }
   .option-chips {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 5px;
+    display: flex; flex-wrap: wrap; gap: 5px;
     margin-top: 9px;
   }
 
   /* Action button row */
   .actions {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 6px;
+    display: flex; flex-wrap: wrap; gap: 6px;
     margin-top: 12px;
   }
   .btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 6px;
-    height: 38px;
+    display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+    height: 40px;
     padding: 0 14px;
     border-radius: var(--radius-pill);
-    font-size: 13px;
-    font-weight: 500;
+    font-size: 13px; font-weight: 500;
     transition: background-color .15s ease, border-color .15s ease, color .15s ease, transform .12s ease;
     white-space: nowrap;
+    -webkit-tap-highlight-color: transparent;
   }
   .btn:active { transform: scale(.97); }
   .btn svg { width: 14px; height: 14px; }
 
-  .btn-primary {
-    background: var(--text);
-    color: var(--bg);
-  }
+  .btn-primary { background: var(--text); color: var(--bg); }
   .btn-primary:hover { background: var(--accent); color: #fff; }
 
   .btn-secondary {
@@ -460,34 +368,23 @@
      CHIPS
      ============================================================ */
   .chip {
-    display: inline-flex;
-    align-items: center;
-    height: 22px;
-    padding: 0 9px;
+    display: inline-flex; align-items: center;
+    height: 22px; padding: 0 9px;
     border-radius: var(--radius-pill);
-    font-size: 11px;
-    font-weight: 500;
+    font-size: 11px; font-weight: 500;
     letter-spacing: 0.01em;
     background: var(--surface-pressed);
     color: var(--text-muted);
     border: 1px solid transparent;
+    white-space: nowrap;
   }
-  .chip.chip-accent {
-    background: var(--accent-soft);
-    color: var(--accent);
-  }
-  .chip.chip-outside {
-    background: transparent;
-    border-color: var(--accent);
-    color: var(--accent);
-  }
-  .chip.chip-strong {
-    background: var(--text);
-    color: var(--bg);
-  }
+  .chip.chip-accent  { background: var(--accent-soft); color: var(--accent); }
+  .chip.chip-outside { background: transparent; border-color: var(--accent); color: var(--accent); }
+  .chip.chip-strong  { background: var(--text); color: var(--bg); }
+  .chip.chip-success { background: var(--success-soft); color: var(--success); }
 
   /* ============================================================
-     SUPPLEMENTS + RULES
+     PANELS (supps + rules)
      ============================================================ */
   .panel {
     background: var(--surface);
@@ -505,40 +402,24 @@
     border-bottom: 1px solid var(--border);
     align-items: baseline;
   }
-  .supps-row:last-child { border-bottom: 0; }
+  .supps-row:last-child { border-bottom: 0; padding-bottom: 0; }
+  .supps-row:first-child { padding-top: 0; }
   .supps-time {
     font-family: 'JetBrains Mono', monospace;
-    font-size: 11px;
-    color: var(--accent);
-    font-weight: 500;
+    font-size: 11px; color: var(--accent); font-weight: 500;
+    letter-spacing: 0.02em;
   }
-  .supps-name {
-    font-size: 14px;
-    color: var(--text);
-    font-weight: 400;
-  }
-  .supps-name span {
-    color: var(--text-muted);
-    font-size: 12.5px;
-    margin-left: 6px;
-  }
+  .supps-name { font-size: 14px; color: var(--text); font-weight: 400; }
+  .supps-name span { color: var(--text-muted); font-size: 12.5px; margin-left: 6px; }
 
-  .rules-list {
-    display: flex;
-    flex-direction: column;
-    gap: 9px;
-  }
+  .rules-list { display: flex; flex-direction: column; gap: 9px; }
   .rules-item {
-    display: flex;
-    gap: 11px;
-    align-items: flex-start;
-    font-size: 14px;
-    color: var(--text);
+    display: flex; gap: 11px; align-items: flex-start;
+    font-size: 14px; color: var(--text); line-height: 1.45;
   }
   .rules-item::before {
     content: '';
-    width: 6px;
-    height: 6px;
+    width: 6px; height: 6px;
     border-radius: 50%;
     background: var(--accent);
     margin-top: 9px;
@@ -553,32 +434,31 @@
     left: 50%;
     bottom: max(16px, env(safe-area-inset-bottom, 16px));
     transform: translateX(-50%);
-    display: flex;
-    gap: 6px;
+    display: flex; gap: 6px;
     padding: 6px;
-    background: var(--surface);
+    background: color-mix(in srgb, var(--surface) 88%, transparent);
     border: 1px solid var(--border-strong);
     border-radius: var(--radius-pill);
     box-shadow: var(--shadow-lg);
     z-index: 50;
     backdrop-filter: blur(20px) saturate(140%);
     -webkit-backdrop-filter: blur(20px) saturate(140%);
+    max-width: calc(100% - 24px);
   }
   .fab-bar .btn { height: 42px; padding: 0 16px; font-size: 13px; }
   .fab-bar .btn-primary { background: var(--accent); color: #fff; }
   .fab-bar .btn-primary:hover { background: var(--accent-hover); }
+  .fab-bar .btn-secondary { border-color: transparent; }
+  .fab-bar .btn-secondary:hover { background: var(--surface-pressed); }
 
   /* ============================================================
      ANIMATIONS
      ============================================================ */
   @keyframes fadeUp {
     from { opacity: 0; transform: translateY(6px); }
-    to { opacity: 1; transform: translateY(0); }
+    to   { opacity: 1; transform: translateY(0); }
   }
-  @keyframes pop {
-    0%   { transform: scale(.94); }
-    100% { transform: scale(1); }
-  }
+  @keyframes pop { 0% { transform: scale(.94); } 100% { transform: scale(1); } }
   .pop { animation: pop .25s ease; }
 
   @media (prefers-reduced-motion: reduce) {
@@ -586,12 +466,13 @@
   }
 
   /* ============================================================
-     SMALL SCREEN ADJUSTMENTS
+     SMALL SCREENS
      ============================================================ */
   @media (max-width: 380px) {
     .day-tab { min-width: 50px; padding: 9px 10px; }
     .summary-day { font-size: 26px; }
     .fab-bar .btn { padding: 0 12px; font-size: 12px; }
+    .supps-row { grid-template-columns: 100px 1fr; gap: 10px; }
   }
 </style>
 </head>
@@ -599,18 +480,16 @@
 
 <div class="app">
 
-  <!-- =================================================
-       TOPBAR
-       ================================================= -->
+  <!-- TOPBAR -->
   <header class="topbar" role="banner">
     <div class="brand">
       <div class="brand-mark display" aria-hidden="true">R</div>
       <div class="brand-text">
-        <div class="title">Recovery Diet Planner</div>
-        <div class="subtitle" id="todayLabel">— sit tight, loading —</div>
+        <div class="title">Recovery Diet</div>
+        <div class="subtitle" id="todayLabel">Daily decision assistant</div>
       </div>
     </div>
-    <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode" type="button">
       <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
         <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
       </svg>
@@ -621,47 +500,512 @@
     </button>
   </header>
 
-  <!-- =================================================
-       DAY TABS
-       ================================================= -->
+  <!-- DAY TABS -->
   <div class="day-tabs-wrap">
     <div class="day-tabs" role="tablist" id="dayTabs"></div>
   </div>
 
-  <!-- =================================================
-       SUMMARY CARD
-       ================================================= -->
+  <!-- SUMMARY -->
   <section class="summary" id="summary" aria-live="polite"></section>
 
-  <!-- =================================================
-       TIMELINE
-       ================================================= -->
+  <!-- TIMELINE -->
   <div class="section-header">
-    <h2>Today's flow</h2>
+    <h2>The day's flow</h2>
     <span class="meta" id="timelineMeta">—</span>
   </div>
   <section class="timeline" id="timeline" aria-label="Daily schedule"></section>
 
-  <!-- =================================================
-       SUPPLEMENTS
-       ================================================= -->
+  <!-- SUPPLEMENTS -->
   <div class="section-header">
     <h2>Supplements</h2>
     <span class="meta">Daily timing</span>
   </div>
   <section class="panel" aria-label="Supplements">
     <div class="supps-list">
-      <div class="supps-row"><div class="supps-time">8:00 — 8:30</div><div class="supps-name">Vitamin B12 <span>morning</span></div></div>
-      <div class="supps-row"><div class="supps-time">10:30 — 11:00</div><div class="supps-name">Whey + Creatine <span>after physio</span></div></div>
-      <div class="supps-row"><div class="supps-time">1:30 PM</div><div class="supps-name">Omega-3 <span>with lunch</span></div></div>
-      <div class="supps-row"><div class="supps-time">1:30 / 9:00</div><div class="supps-name">Vitamin D3 <span>with lunch or dinner</span></div></div>
-      <div class="supps-row"><div class="supps-time">11:00 PM</div><div class="supps-name">Magnesium <span>optional, before bed</span></div></div>
+      <div class="supps-row"><div class="supps-time mono">8:00 — 8:30</div><div class="supps-name">Vitamin B12 <span>morning, empty stomach</span></div></div>
+      <div class="supps-row"><div class="supps-time mono">10:30 — 11:00</div><div class="supps-name">Whey + Creatine <span>after physio, with fruit</span></div></div>
+      <div class="supps-row"><div class="supps-time mono">1:30 PM</div><div class="supps-name">Omega-3 <span>with lunch</span></div></div>
+      <div class="supps-row"><div class="supps-time mono">1:30 / 9:00</div><div class="supps-name">Vitamin D3 <span>with lunch or dinner</span></div></div>
+      <div class="supps-row"><div class="supps-time mono">11:00 PM</div><div class="supps-name">Magnesium <span>optional, before bed</span></div></div>
     </div>
   </section>
 
-  <!-- =================================================
-       RULES
-       ================================================= -->
+  <!-- RULES -->
   <div class="section-header">
     <h2>House rules</h2>
-    <span class="meta">Non-negotiabl
+    <span class="meta">Non-negotiables</span>
+  </div>
+  <section class="panel" aria-label="Daily rules">
+    <ul class="rules-list">
+      <li class="rules-item">Fruit every day — ideally post-physio with whey.</li>
+      <li class="rules-item">Salad at lunch and dinner. No exceptions.</li>
+      <li class="rules-item">Nuts and seeds once a day, for joints and meniscus.</li>
+      <li class="rules-item">Protein on the plate first, before carbs.</li>
+      <li class="rules-item">Sunday outside meal must still be protein-led — no naked carbs.</li>
+    </ul>
+  </section>
+
+</div>
+
+<!-- FAB BAR -->
+<nav class="fab-bar" aria-label="Quick decisions">
+  <button class="btn btn-secondary" id="todayBtn" type="button">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>
+    </svg>
+    Today
+  </button>
+  <button class="btn btn-primary" id="pickAllBtn" type="button">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <rect x="3" y="3" width="18" height="18" rx="3"/>
+      <circle cx="8.5" cy="8.5" r="1.1" fill="currentColor"/>
+      <circle cx="15.5" cy="15.5" r="1.1" fill="currentColor"/>
+      <circle cx="15.5" cy="8.5" r="1.1" fill="currentColor"/>
+    </svg>
+    Pick all
+  </button>
+  <button class="btn btn-secondary" id="resetBtn" type="button">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <path d="M21 12a9 9 0 1 1-3-6.7L21 8"/><path d="M21 3v5h-5"/>
+    </svg>
+    Reset
+  </button>
+</nav>
+
+<script>
+'use strict';
+
+/* ============================================================
+   WEEKLY DATA
+   ============================================================ */
+
+const DAYS = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
+const FULL_DAY = {
+  Mon:'Monday', Tue:'Tuesday', Wed:'Wednesday', Thu:'Thursday',
+  Fri:'Friday', Sat:'Saturday', Sun:'Sunday'
+};
+
+// ---- shared meal banks --------------------------------------
+const LUNCH_OPTIONS = [
+  { name: 'Soya pulao with 50 g dry soya chunks + dahi + salad',  chips: ['High protein','Vegetarian'] },
+  { name: 'Large bowl dal / rajma / chole + 2 rotis + salad',     chips: ['High protein','Vegetarian'] },
+  { name: '3-egg bhurji + small bowl dal or 1 roti + salad',      chips: ['High protein','Eggetarian'] },
+];
+
+const DINNER_OPTIONS = [
+  { name: '120–150 g paneer with vegetables + 1 roti', chips: ['High protein','Vegetarian'] },
+  { name: '3-egg bhurji + small bowl dal or 1 roti',   chips: ['High protein','Eggetarian'] },
+  { name: 'Light dal-rice khichdi + dahi',             chips: ['Recovery','Vegetarian'] },
+];
+
+const SNACK_OPTIONS = [
+  { name: 'Almonds + walnuts + pumpkin or sesame seeds (small handful)', chips: ['Joint support','Vegetarian'] },
+];
+
+const PRE_PHYSIO_OPTIONS = [
+  { name: 'Black coffee or tea (no sugar)', chips: ['Light'] },
+  { name: 'One small banana',               chips: ['Light','Energy'] },
+];
+
+const SUNDAY_HOME_OPTIONS = [
+  { name: 'Paneer bhurji + 1 roti',                chips: ['High protein','Vegetarian'] },
+  { name: 'Egg bhurji + small bowl dal',           chips: ['High protein','Eggetarian'] },
+  { name: 'Soya pulao + dahi + salad',             chips: ['High protein','Vegetarian'] },
+];
+
+const SUNDAY_OUT_OPTIONS = [
+  { name: 'Paneer tikka meal (with salad)',                                   chips: ['High protein','Outside meal','Vegetarian'] },
+  { name: 'Paneer curry + 2 rotis + salad',                                   chips: ['High protein','Outside meal','Vegetarian'] },
+  { name: '3-egg masala omelette meal',                                       chips: ['High protein','Outside meal','Eggetarian'] },
+  { name: 'Rajma or chole rice — half rice portion, add a protein side',      chips: ['High protein','Outside meal','Vegetarian'] },
+];
+
+// ---- block factory ------------------------------------------
+function weekdayBlocks() {
+  return [
+    { id:'b12',         time:'8:00 — 8:30 AM',   type:'supp',     title:'Vitamin B12',          kind:'Supplement',                   note:'Sublingual or capsule, on empty stomach.' },
+    { id:'pre',         time:'9:30 AM',          type:'pickone',  title:'Pre-physio (optional)',kind:'Optional fuel',                 options: PRE_PHYSIO_OPTIONS, note:'Only if you really need it.' },
+    { id:'physio',      time:'10:00 AM',         type:'event',    title:'Sports physio',        kind:'Session',                       note:'Knee + shoulder. Leave on time.' },
+    { id:'post',        time:'10:30 — 11:00 AM', type:'fixed',    title:'Whey + creatine + fruit', kind:'Recovery shake',             chips:['High protein','Recovery'], note:'1 scoop whey, 5 g creatine, one whole fruit.' },
+    { id:'lunch',       time:'1:30 PM',          type:'meal',     title:'Lunch',                kind:'Main meal',                     options: LUNCH_OPTIONS,  meta:'+ Omega-3 + Vitamin D3' },
+    { id:'snack',       time:'3:30 — 4:00 PM',   type:'meal',     title:'Snack',                kind:'Joint + meniscus fuel',         options: SNACK_OPTIONS },
+    { id:'dinner',      time:'9:00 — 9:30 PM',   type:'meal',     title:'Dinner',               kind:'Main meal',                     options: DINNER_OPTIONS },
+    { id:'mag',         time:'11:00 — 11:30 PM', type:'supp',     title:'Magnesium',            kind:'Optional supplement',          note:'Optional. Helps sleep + recovery.' },
+    { id:'sleep',       time:'1:00 AM',          type:'event',    title:'Sleep',                kind:'Wind down',                     note:'Aim for ~7 hours.' },
+  ];
+}
+
+function sundayBlocks() {
+  return [
+    { id:'b12',     time:'8:00 — 8:30 AM',   type:'supp',  title:'Vitamin B12',                kind:'Supplement',         note:'Sublingual or capsule, on empty stomach.' },
+    { id:'breakfast', time:'10:00 — 10:30 AM', type:'meal', title:'Breakfast (home)',         kind:'Main meal',          options: SUNDAY_HOME_OPTIONS, note:'No physio today — breakfast is on.' },
+    { id:'post',    time:'11:30 AM',         type:'fixed', title:'Whey + creatine + fruit',   kind:'Recovery shake',     chips:['High protein','Recovery'], note:'Still take it, even on rest day.' },
+    { id:'lunch',   time:'1:30 PM',          type:'meal',  title:'Lunch — outside meal',      kind:'Outside, protein-led', options: SUNDAY_OUT_OPTIONS, meta:'+ Omega-3 + Vitamin D3' },
+    { id:'snack',   time:'3:30 — 4:00 PM',   type:'meal',  title:'Snack',                     kind:'Joint + meniscus fuel', options: SNACK_OPTIONS },
+    { id:'dinner',  time:'9:00 — 9:30 PM',   type:'meal',  title:'Dinner (home)',             kind:'Main meal, light',   options: DINNER_OPTIONS },
+    { id:'mag',     time:'11:00 — 11:30 PM', type:'supp',  title:'Magnesium',                 kind:'Optional supplement', note:'Optional. Helps sleep + recovery.' },
+    { id:'sleep',   time:'1:00 AM',          type:'event', title:'Sleep',                     kind:'Wind down',          note:'Aim for ~7 hours.' },
+  ];
+}
+
+const PLAN = {
+  Mon: weekdayBlocks(), Tue: weekdayBlocks(), Wed: weekdayBlocks(),
+  Thu: weekdayBlocks(), Fri: weekdayBlocks(), Sat: weekdayBlocks(),
+  Sun: sundayBlocks(),
+};
+
+const DAY_META = {
+  Mon: { physio:true,  breakfast:false, outside:false, reminder:'Protein first, salad mandatory, fruit mandatory.' },
+  Tue: { physio:true,  breakfast:false, outside:false, reminder:'Protein first, salad mandatory, fruit mandatory.' },
+  Wed: { physio:true,  breakfast:false, outside:false, reminder:'Protein first, salad mandatory, fruit mandatory.' },
+  Thu: { physio:true,  breakfast:false, outside:false, reminder:'Protein first, salad mandatory, fruit mandatory.' },
+  Fri: { physio:true,  breakfast:false, outside:false, reminder:'Protein first, salad mandatory, fruit mandatory.' },
+  Sat: { physio:true,  breakfast:false, outside:false, reminder:'Protein first, salad mandatory, fruit mandatory.' },
+  Sun: { physio:false, breakfast:true,  outside:true,  reminder:'Outside meal day. Pick something protein-led — no naked carbs.' },
+};
+
+/* ============================================================
+   APP STATE (in-memory only)
+   ============================================================ */
+
+const state = {
+  currentDay: getTodayCode(),
+  // picks[dayCode][blockId] = { idx: number, done: boolean }
+  picks: Object.fromEntries(DAYS.map(d => [d, {}])),
+};
+
+function getTodayCode() {
+  // JS: Sun=0..Sat=6, our DAYS starts at Mon
+  const map = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+  return map[new Date().getDay()];
+}
+
+function blocksFor(dayCode) { return PLAN[dayCode]; }
+function metaFor(dayCode)   { return DAY_META[dayCode]; }
+function pickFor(dayCode, blockId) {
+  return state.picks[dayCode][blockId] || { idx:-1, done:false };
+}
+function setPick(dayCode, blockId, patch) {
+  const cur = pickFor(dayCode, blockId);
+  state.picks[dayCode][blockId] = { ...cur, ...patch };
+}
+
+/* ============================================================
+   ICONS
+   ============================================================ */
+
+function svgIcon(path) {
+  return `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${path}</svg>`;
+}
+const ICONS = {
+  dice:     svgIcon('<rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.1" fill="currentColor"/><circle cx="15.5" cy="15.5" r="1.1" fill="currentColor"/><circle cx="15.5" cy="8.5" r="1.1" fill="currentColor"/>'),
+  shuffle:  svgIcon('<path d="M16 3h5v5"/><path d="M4 20l17-17"/><path d="M21 16v5h-5"/><path d="M15 15l6 6"/><path d="M4 4l5 5"/>'),
+  check:    svgIcon('<polyline points="20 6 9 17 4 12"/>'),
+  pill:     svgIcon('<rect x="2.5" y="9" width="19" height="6" rx="3" transform="rotate(-30 12 12)"/><line x1="12" y1="6" x2="12" y2="18" transform="rotate(-30 12 12)"/>'),
+  flow:     svgIcon('<path d="M12 2v6"/><path d="M5 12h14"/><circle cx="12" cy="12" r="2.5"/><path d="M12 16v6"/>'),
+};
+
+/* ============================================================
+   CHIP HELPERS
+   ============================================================ */
+
+const CHIP_STYLES = {
+  'High protein':  'chip-accent',
+  'Joint support': 'chip-accent',
+  'Recovery':      'chip-success',
+  'Outside meal':  'chip-outside',
+  'Vegetarian':    '',
+  'Eggetarian':    '',
+  'Light':         '',
+  'Energy':        '',
+};
+function chip(label) {
+  const cls = CHIP_STYLES[label] ?? '';
+  return `<span class="chip ${cls}">${label}</span>`;
+}
+function chips(arr) {
+  if (!arr || !arr.length) return '';
+  return `<div class="option-chips">${arr.map(chip).join('')}</div>`;
+}
+
+/* ============================================================
+   RENDERERS
+   ============================================================ */
+
+const $tabs       = document.getElementById('dayTabs');
+const $summary    = document.getElementById('summary');
+const $timeline   = document.getElementById('timeline');
+const $todayLabel = document.getElementById('todayLabel');
+const $tlMeta     = document.getElementById('timelineMeta');
+
+function renderSubtitle() {
+  const today = new Date();
+  const dateStr = today.toLocaleDateString(undefined, { weekday: 'long', month: 'long', day: 'numeric' });
+  $todayLabel.textContent = dateStr;
+}
+
+function renderTabs() {
+  const today = getTodayCode();
+  $tabs.innerHTML = DAYS.map(d => {
+    const isActive = d === state.currentDay;
+    const isToday  = d === today;
+    return `
+      <button
+        class="day-tab ${isActive ? 'is-active' : ''} ${isToday ? 'is-today' : ''}"
+        data-day="${d}"
+        role="tab"
+        aria-selected="${isActive}"
+        type="button"
+      >
+        <span class="day-letter">${d}</span>
+        <span class="day-num">${isToday ? 'Today' : '\u00A0'}</span>
+      </button>
+    `;
+  }).join('');
+}
+
+function renderSummary() {
+  const day = state.currentDay;
+  const m = metaFor(day);
+  const isToday = day === getTodayCode();
+
+  const chipRow = [];
+  chipRow.push(`<span class="chip ${m.physio ? 'chip-accent' : ''}">${m.physio ? 'Physio day' : 'Rest day'}</span>`);
+  chipRow.push(`<span class="chip">${m.breakfast ? 'Breakfast on' : 'No breakfast'}</span>`);
+  if (m.outside)  chipRow.push(`<span class="chip chip-outside">Outside meal</span>`);
+  chipRow.push(`<span class="chip ${isToday ? 'chip-strong' : ''}">${isToday ? 'Today' : 'Plan'}</span>`);
+
+  // count picks
+  const blocks = blocksFor(day);
+  const mealBlocks = blocks.filter(b => b.type === 'meal' || b.type === 'pickone');
+  const decided = mealBlocks.filter(b => pickFor(day, b.id).idx >= 0).length;
+  const dateStr = isToday
+    ? new Date().toLocaleDateString(undefined, { day:'numeric', month:'short' })
+    : '';
+
+  $summary.innerHTML = `
+    <div class="summary-head">
+      <h1 class="summary-day">${FULL_DAY[day]}<span class="accent">.</span></h1>
+      ${dateStr ? `<div class="summary-date">${dateStr}</div>` : ''}
+    </div>
+    <div class="summary-chips">${chipRow.join('')}</div>
+    <div class="summary-reminder">
+      <strong>Today, ${day === 'Sun' ? 'one outside meal' : 'no breakfast — fast through to the post-physio shake'}.</strong>
+      ${m.reminder}
+    </div>
+  `;
+
+  $tlMeta.textContent = `${decided} / ${mealBlocks.length} chosen`;
+}
+
+function renderBlock(b) {
+  const day = state.currentDay;
+  const pick = pickFor(day, b.id);
+
+  // ---- decide body ----
+  let body = '';
+  let actions = '';
+
+  if (b.type === 'event') {
+    // physio / sleep
+    body = b.note ? `<div class="block-note">${b.note}</div>` : '';
+    actions = `
+      <div class="actions">
+        <button class="btn btn-success ${pick.done ? 'is-done' : ''}" data-act="done" data-id="${b.id}" type="button">
+          ${pick.done ? ICONS.check + ' Done' : 'Mark done'}
+        </button>
+      </div>
+    `;
+  }
+  else if (b.type === 'supp') {
+    body = b.note ? `<div class="block-note">${b.note}</div>` : '';
+    actions = `
+      <div class="actions">
+        <button class="btn btn-success ${pick.done ? 'is-done' : ''}" data-act="done" data-id="${b.id}" type="button">
+          ${pick.done ? ICONS.check + ' Taken' : ICONS.pill + ' Mark taken'}
+        </button>
+      </div>
+    `;
+  }
+  else if (b.type === 'fixed') {
+    body = `
+      <div class="option-card is-picked">
+        <div class="option-pos">Fixed</div>
+        <div class="option-name">${b.note}</div>
+        ${chips(b.chips)}
+      </div>
+    `;
+    actions = `
+      <div class="actions">
+        <button class="btn btn-success ${pick.done ? 'is-done' : ''}" data-act="done" data-id="${b.id}" type="button">
+          ${pick.done ? ICONS.check + ' Done' : 'Mark done'}
+        </button>
+      </div>
+    `;
+  }
+  else {
+    // meal or pickone
+    const opts = b.options;
+    const idx = pick.idx;
+    let card = '';
+    if (idx < 0) {
+      card = `
+        <div class="option-card is-empty">
+          <div class="option-pos">Undecided</div>
+          <div class="option-name">Tap "Pick for me" or browse with "Switch option".</div>
+        </div>
+      `;
+    } else {
+      const o = opts[idx];
+      card = `
+        <div class="option-card is-picked pop">
+          <div class="option-pos">Pick · ${idx + 1} of ${opts.length}</div>
+          <div class="option-name">${o.name}</div>
+          ${chips(o.chips)}
+        </div>
+      `;
+    }
+    body = card;
+    const showSwitch = opts.length > 1;
+    actions = `
+      <div class="actions">
+        ${ opts.length > 1 ? `<button class="btn btn-primary" data-act="pick" data-id="${b.id}" type="button">${ICONS.dice} Pick for me</button>` : '' }
+        ${ showSwitch     ? `<button class="btn btn-secondary" data-act="switch" data-id="${b.id}" type="button">${ICONS.shuffle} Switch option</button>` : '' }
+        <button class="btn btn-success ${pick.done ? 'is-done' : ''}" data-act="done" data-id="${b.id}" type="button">
+          ${pick.done ? ICONS.check + ' Done' : 'Mark done'}
+        </button>
+      </div>
+    `;
+    if (b.meta) {
+      body += `<div class="block-note" style="margin-top:8px">${b.meta}</div>`;
+    }
+  }
+
+  const eventCls = b.type === 'event' ? 'is-event' : '';
+  const doneCls  = pick.done ? 'is-done' : '';
+
+  return `
+    <article class="block ${eventCls} ${doneCls}" data-id="${b.id}">
+      <div class="block-head">
+        <div class="block-head-left">
+          <span class="block-time mono">${b.time}</span>
+          <h3 class="block-title">${b.title}</h3>
+          <div class="block-kind">${b.kind}</div>
+        </div>
+      </div>
+      ${body}
+      ${actions}
+    </article>
+  `;
+}
+
+function renderTimeline() {
+  const blocks = blocksFor(state.currentDay);
+  $timeline.innerHTML = blocks.map(renderBlock).join('');
+}
+
+function renderAll() {
+  renderTabs();
+  renderSummary();
+  renderTimeline();
+}
+
+/* ============================================================
+   EVENT HANDLERS
+   ============================================================ */
+
+// Day switch
+$tabs.addEventListener('click', (e) => {
+  const t = e.target.closest('[data-day]');
+  if (!t) return;
+  const day = t.dataset.day;
+  if (day === state.currentDay) return;
+  state.currentDay = day;
+  renderAll();
+});
+
+// Block actions (delegated)
+$timeline.addEventListener('click', (e) => {
+  const t = e.target.closest('[data-act]');
+  if (!t) return;
+  const id = t.dataset.id;
+  const act = t.dataset.act;
+  const day = state.currentDay;
+  const block = blocksFor(day).find(b => b.id === id);
+  if (!block) return;
+  const cur = pickFor(day, id);
+
+  if (act === 'pick') {
+    const opts = block.options || [];
+    if (opts.length === 0) return;
+    let next = Math.floor(Math.random() * opts.length);
+    if (opts.length > 1 && next === cur.idx) next = (next + 1) % opts.length;
+    setPick(day, id, { idx: next });
+  }
+  else if (act === 'switch') {
+    const opts = block.options || [];
+    if (opts.length === 0) return;
+    const next = cur.idx < 0 ? 0 : (cur.idx + 1) % opts.length;
+    setPick(day, id, { idx: next });
+  }
+  else if (act === 'done') {
+    setPick(day, id, { done: !cur.done });
+  }
+
+  renderSummary();
+  renderTimeline();
+});
+
+// FAB: today
+document.getElementById('todayBtn').addEventListener('click', () => {
+  state.currentDay = getTodayCode();
+  renderAll();
+});
+
+// FAB: pick all (only undecided meal slots, only blocks with > 1 option)
+document.getElementById('pickAllBtn').addEventListener('click', () => {
+  const day = state.currentDay;
+  blocksFor(day).forEach(b => {
+    if (b.type !== 'meal' && b.type !== 'pickone') return;
+    const opts = b.options || [];
+    if (opts.length < 2) return;
+    if (pickFor(day, b.id).idx >= 0) return; // already decided
+    const idx = Math.floor(Math.random() * opts.length);
+    setPick(day, b.id, { idx });
+  });
+  renderSummary();
+  renderTimeline();
+});
+
+// FAB: reset (current day only)
+document.getElementById('resetBtn').addEventListener('click', () => {
+  state.picks[state.currentDay] = {};
+  renderSummary();
+  renderTimeline();
+});
+
+// Theme toggle
+const $themeBtn = document.getElementById('themeToggle');
+function setTheme(mode) {
+  document.documentElement.classList.toggle('dark', mode === 'dark');
+}
+$themeBtn.addEventListener('click', () => {
+  const isDark = document.documentElement.classList.contains('dark');
+  setTheme(isDark ? 'light' : 'dark');
+});
+
+// Initial: respect OS preference
+if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+  setTheme('dark');
+}
+
+/* ============================================================
+   INIT
+   ============================================================ */
+
+renderSubtitle();
+renderAll();
+</script>
+
+</body>
+</html>
